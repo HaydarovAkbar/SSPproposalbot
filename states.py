@@ -1,0 +1,12 @@
+class State:
+    BASE = 0
+    LANGUAGE = 1
+    PHONE = 2
+    OFFER = 3
+    APPLICATION_TYPE = 4
+    COMPANY_NAME = 5
+    COMPANY_INN = 6
+    BISENESS_CENTER = 7
+    BISENESS_TYPE = 8
+
+
