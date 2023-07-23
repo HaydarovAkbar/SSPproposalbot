@@ -5,7 +5,7 @@ class KeyboardsText:
     phone_number = {
         'uz_latn': "☎️ Kontaktim ☎️",
         'uz_cyrl': "☎️ Контактим ☎️",
-        'ru': "☎️ Контактим ☎️",
+        'ru': "☎️ Мой контакт ☎️",
     }
     blok_menu = {
         'uz_latn': ['📝 Bloklarni boshqarish', '📝 Bloklarni ko\'rish', '📝 Bloklarni o\'chirish'],
