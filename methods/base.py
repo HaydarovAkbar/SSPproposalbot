@@ -49,6 +49,7 @@ def get_offer(update: Update, context: CallbackContext):
     create = ssp.create_proposal(data=context.user_data)
     if create == 200:
         update.message.reply_html(text=msg.successfully.get(lang))
+        update.message.reply_text(text=msg.vote.get(lang))
         return st.BASE
     update.message.reply_html(
         text=msg.error_message.get(lang),

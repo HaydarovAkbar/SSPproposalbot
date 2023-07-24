@@ -109,3 +109,27 @@ class MessageText:
         'uz_cyrl': "Бу охирги саҳифа эди",
         'ru': "Это была последняя страница",
     }
+
+    vote = {
+        'uz_latn': """
+Oʼzbekiston Savdo-sanoat palatasi tomonidan tadbirkorlik faoliyatini oʼrganish, biznes yuritishda duch kelinayotgan tizimli muammolarni aniqlash maqsadida soʼrovnoma oʼtkazilmoqda. 
+
+Quyidagi havola orqali soʼrovnomani toʼldirishingiz mumkin: https://ee.humanitarianresponse.info/QvDmcMon
+
+Mamlakatimiz ishbilarmonlik muhitini rivojlantirishda faol ishtirok eting!
+""",
+        'uz_cyrl': """
+Ўзбекистон Савдо-саноат палатаси томонидан тадбиркорлик фаолиятини ўрганиш, бизнес юритишда дуч келинайотган тизимли муаммоларни аниқлаш мақсадида сўровнома ўтказилмоқда. 
+
+Қуйидаги ҳавола орқали сўровномани тўлдиришингиз мумкин: https://ee.humanitarianresponse.info/QvDmcMon
+
+Мамлакатимиз ишбилармонлик муҳитини ривожлантиришда фаол иштирок этинг!
+""",
+        'ru': """
+Торгово-промышленная палата Узбекистана проводит опрос с целью выявления системных проблем, с которыми сталкиваются предприниматели в процессе осуществления предпринимательской деятельности.
+
+Опрос можно заполнить по следующей ссылке: https://ee.humanitarianresponse.info/QvDmcMon
+
+Принимайте активное участие в развитии предпринимательской среды в нашей стране!
+""",
+    }
