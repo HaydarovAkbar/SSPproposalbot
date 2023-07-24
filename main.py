@@ -8,10 +8,9 @@ from decouple import config
 
 TOKEN = config('TOKEN')
 
-update = Updater(token=TOKEN, use_context=True, workers=100)
+update = Updater(token=TOKEN, use_context=True, workers=1000)
 
 dispatcher: Dispatcher = update.dispatcher
-a = dispatcher.groups
 
 hand_command = ConversationHandler(
     entry_points=[CommandHandler('start', start)],

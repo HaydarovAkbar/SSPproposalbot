@@ -23,17 +23,18 @@ class IntegrationSSP:
 
     @staticmethod
     def get_all_application_type(lang='uz_latn'):
-        responce = requests.get(f'{BASE_URL}/Manual/ApplicantTypeSelectList?languageId={lang_id[lang]}')
+        responce = requests.get(f'{BASE_URL}/Manual/ApplicantTypeSelectList?__lang={lang_id[lang]}', verify=False)
         return responce.json()
 
     @staticmethod
     def business_sector_list(lang='uz_latn'):
-        responce = requests.get(f'{BASE_URL}/Manual/BusinessSectorSelectList?languageId={lang_id[lang]}')
+        responce = requests.get(f'{BASE_URL}/Manual/BusinessSectorSelectList?__lang={lang_id[lang]}', verify=False)
         return responce.json()
 
     @staticmethod
     def proposal_subject_list(lang='uz_latn'):
-        responce = requests.get(f'{BASE_URL}/Manual/ProposalSubjectSelectList?languageId={lang_id[lang]}')
+        print(f'{BASE_URL}/Manual/ProposalSubjectSelectList?__lang={lang_id[lang]}')
+        responce = requests.get(f'{BASE_URL}/Manual/ProposalSubjectSelectList?__lang={lang_id[lang]}', verify=False)
         return responce.json()
 
     @staticmethod
@@ -49,9 +50,9 @@ class IntegrationSSP:
             "companyName": data.get('company_name', None),
             "companyInn": data.get('company_inn', None),
         }
-        response = requests.post(url, json=data)
+        response = requests.post(url, json=data, verify=False)
         return response.status_code
 
 
 if __name__ == '__main__':
-    IntegrationSSP.proposal_subject_list()
+    print(IntegrationSSP.proposal_subject_list())
