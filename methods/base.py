@@ -3,7 +3,6 @@ from telegram.ext import CallbackContext
 from keyboards.base import Button as base_button
 from dictionary.base import MessageText as msg
 from states import State as st
-from keyboards.texts import KeyboardsText as kbt
 from integration.base import IntegrationSSP as ssp
 
 
@@ -46,11 +45,12 @@ def get_phonenumber(update: Update, context: CallbackContext):
 def get_offer(update: Update, context: CallbackContext):
     lang = context.user_data['lang']
     context.user_data['fullname'] = update.effective_user.full_name
+    context.user_data['offer'] = update.message.text
     create = ssp.create_proposal(data=context.user_data)
     if create == 200:
         update.message.reply_html(text=msg.successfully.get(lang))
         return st.BASE
-    update.message.reply_text(
+    update.message.reply_html(
         text=msg.error_message.get(lang),
         reply_markup=ReplyKeyboardRemove()
     )
@@ -127,10 +127,17 @@ def get_business_type(update: Update, context: CallbackContext):
     else:
         context.user_data['business_type'] = query.data
         query.delete_message()
-        context.bot.send_message(chat_id=update.effective_user.id,text=msg.get_offer.get(lang))
-        return st.OFFER
+        context.bot.send_message(chat_id=update.effective_user.id, text=msg.get_appeal.get(lang))
+        return st.APPEAL
     context.user_data['page'] = page
     button, text = base_button.proposal_subject(lang, page)
     query.edit_message_text(text=text,
                             reply_markup=button)
     return st.BISENESS_TYPE
+
+
+def get_appeal(update: Update, context: CallbackContext):
+    lang = context.user_data['lang']
+    context.user_data['appeal'] = update.message.text
+    update.message.reply_html(text=msg.get_offer.get(lang))
+    return st.OFFER

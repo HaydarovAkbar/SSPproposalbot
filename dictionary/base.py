@@ -26,6 +26,13 @@ class MessageText:
         'en': "Enter your suggestion:"
     }
 
+    get_appeal = {
+        'uz_latn': "Murojaatingizni kiriting:",
+        'uz_cyrl': "Мурожаатингизни киритинг:",
+        'ru': "Введите обращение:",
+        'en': "Enter your appeal:"
+    }
+
     successfully = {
         'uz_latn': "<code>Taklifingiz muvaffaqiyatli yuborildi! </code>✅\n\n<b>Yana taklif yuborish uchun /start buyrug'ini yuboring.</b>",
         'uz_cyrl': "<code>Таклифингиз муваффақиятли юборилди!</code> ✅\n\n<b>Яна таклиф юбориш учун /start буюрғини юборинг.</b>",
@@ -102,4 +109,3 @@ class MessageText:
         'uz_cyrl': "Бу охирги саҳифа эди",
         'ru': "Это была последняя страница",
     }
-

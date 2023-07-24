@@ -3,12 +3,11 @@ from decouple import config
 
 BASE_URL = config('BASE_URL')
 lang_id = {
-    'uz_latn': 3,
-    'uz_cyrl': 2,
-    'ru': 1,
-    'en': 4,
+    'uz_latn': 'uz-latn',
+    'uz_cyrl': 'uz-cyrl',
+    'ru': 'ru',
+    'en': 1,
 }
-
 
 class IntegrationSSP:
     @staticmethod
@@ -33,7 +32,6 @@ class IntegrationSSP:
 
     @staticmethod
     def proposal_subject_list(lang='uz_latn'):
-        print(f'{BASE_URL}/Manual/ProposalSubjectSelectList?__lang={lang_id[lang]}')
         responce = requests.get(f'{BASE_URL}/Manual/ProposalSubjectSelectList?__lang={lang_id[lang]}', verify=False)
         return responce.json()
 
@@ -42,14 +40,22 @@ class IntegrationSSP:
         url = f'{BASE_URL}/Proposal/Create'
         data = {
             "proposalTypeId": data.get('application_type', None),
-            "businessSectorId": data.get('business_sector', None),
+            "businessSectorId": data.get('business_center', None),
             "externalSourceTypeId": 3,
             "nameLatin": data.get('fullname', None),
             "phoneNumber": data.get('phone', None),
             "proposalSubjectId": data.get('business_type', None),
-            "companyName": data.get('company_name', None),
-            "companyInn": data.get('company_inn', None),
+            "companyName": data.get('company_name', False),
+            "companyInn": data.get('company_inn', False),
+            "appealText": data.get('appeal', False),
+            "proposalText": data.get('offer', False),
         }
+        if not data.get('companyName', False):
+            data.pop('companyName')
+        if not data.get('companyInn', False):
+            data.pop('companyInn')
+        if not data.get('businessSectorId', False):
+            data.pop('businessSectorId')
         response = requests.post(url, json=data, verify=False)
         return response.status_code
 
