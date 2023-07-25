@@ -8,7 +8,11 @@ from integration.base import IntegrationSSP as ssp
 
 def start(update: Update, context: CallbackContext):
     lang = update.effective_user.language_code
-    update.message.reply_html(text=msg.base.get(lang).format(update.effective_user.full_name),
+    try:
+        _msg = msg.base.get(lang).format(update.effective_user.full_name)
+    except KeyError:
+        _msg = msg.base.get('uz_latn').format(update.effective_user.full_name)
+    update.message.reply_html(text=_msg,
                               reply_markup=base_button.language())
     return st.LANGUAGE
 

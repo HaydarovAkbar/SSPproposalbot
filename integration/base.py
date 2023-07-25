@@ -90,6 +90,7 @@ class IntegrationSSP:
             "companyInn": data.get('company_inn', False),
             "appealText": data.get('appeal', False),
             "proposalText": data.get('offer', False),
+            "companyTypeId": data.get('company_type', False),
         }
         if not data.get('companyName', False):
             data.pop('companyName')
