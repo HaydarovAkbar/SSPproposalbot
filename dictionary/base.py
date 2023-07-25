@@ -47,7 +47,7 @@ class MessageText:
         'en': "<b>Your application has not been sent!</b>\n\nPlease try again."
     }
 
-    _error_message = {
+    tg_error_message = {
         'uz_latn': "<code>Xato xabar kiritdingiz.</code>\n\n/start buyrug'ini yuboring.",
         'uz_cyrl': "<code>Хато хабар киритдингиз.</code>\n\n/start буюрғини юборинг.",
         'ru': "<code>Вы ввели неправильное сообщение.</code>\n\nОтправьте команду /start.",

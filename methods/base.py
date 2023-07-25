@@ -60,7 +60,7 @@ def get_offer(update: Update, context: CallbackContext):
 
 def error_message(update: Update, context: CallbackContext):
     lang = context.user_data['lang'] if 'lang' in context.user_data else 'uz_cyrl'
-    update.message.reply_html(text=msg._error_message.get(lang), reply_markup=ReplyKeyboardRemove())
+    update.message.reply_html(text=msg.tg_error_message.get(lang), reply_markup=ReplyKeyboardRemove())
     return st.LANGUAGE
 
 
@@ -70,9 +70,11 @@ def get_application_type(update: Update, context: CallbackContext):
     lang = context.user_data['lang']
     context.user_data['application_type'] = application_type
     if query.data == '1':
-        query.edit_message_text(text=msg.enter_company_name.get(lang))
+        context.bot.send_message(chat_id=update.effective_user.id, text=msg.enter_company_name.get(lang))
+        # query.edit_message_text(text=msg.enter_company_name.get(lang))
         return st.COMPANY_NAME
-    query.edit_message_text(text=msg.business_sector.get(lang), reply_markup=base_button.business_sector(lang))
+    context.bot.send_message(chat_id=update.effective_user.id, text=msg.business_sector.get(lang), reply_markup=base_button.business_sector(lang))
+    # query.edit_message_text(text=msg.business_sector.get(lang), reply_markup=base_button.business_sector(lang))
     return st.BISENESS_CENTER
 
 
@@ -103,8 +105,11 @@ def get_business_center(update: Update, context: CallbackContext):
     page = 1
     button, text = base_button.proposal_subject(lang, page)
     context.user_data['page'] = page
-    query.edit_message_text(text=text,
-                            reply_markup=button)
+    context.bot.send_message(chat_id=update.effective_user.id,
+                             text=text,
+                             reply_markup=button)
+    # query.edit_message_text(text=text,
+    #                         reply_markup=button)
     return st.BISENESS_TYPE
 
 
@@ -127,7 +132,7 @@ def get_business_type(update: Update, context: CallbackContext):
             return st.BISENESS_TYPE
     else:
         context.user_data['business_type'] = query.data
-        query.delete_message()
+        # query.delete_message()
         context.bot.send_message(chat_id=update.effective_user.id, text=msg.get_appeal.get(lang))
         return st.APPEAL
     context.user_data['page'] = page
