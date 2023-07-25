@@ -26,14 +26,55 @@ class IntegrationSSP:
         return responce.json()
 
     @staticmethod
+    def get_application_type(id, lang='uz_latn'):
+        responce = requests.get(f'{BASE_URL}/Manual/ApplicantTypeSelectList?__lang={lang_id[lang]}', verify=False)
+        for i in responce.json():
+            if i['value'] == int(id):
+                return i['text']
+
+    @staticmethod
     def business_sector_list(lang='uz_latn'):
         responce = requests.get(f'{BASE_URL}/Manual/BusinessSectorSelectList?__lang={lang_id[lang]}', verify=False)
         return responce.json()
 
     @staticmethod
+    def get_business_sector(id, lang='uz_latn'):
+        responce = requests.get(f'{BASE_URL}/Manual/BusinessSectorSelectList?__lang={lang_id[lang]}', verify=False)
+        for i in responce.json():
+            if i['value'] == int(id):
+                return i['text']
+
+    @staticmethod
     def proposal_subject_list(lang='uz_latn'):
         responce = requests.get(f'{BASE_URL}/Manual/ProposalSubjectSelectList?__lang={lang_id[lang]}', verify=False)
         return responce.json()
+
+    @staticmethod
+    def get_proposal_subject(id, lang='uz_latn'):
+        responce = requests.get(f'{BASE_URL}/Manual/ProposalSubjectSelectList?__lang={lang_id[lang]}', verify=False)
+        for i in responce.json():
+            if i['value'] == int(id):
+                return i['text']
+
+    @staticmethod
+    def get_contractor_from_soliq(inn):
+        url = f'{BASE_URL}/Proposal/GetContractorFromSoliq?inn={inn}'
+        response = requests.get(url, verify=False)
+        if response.status_code == 200:
+            return response.json(), response.status_code
+        return response.json(), response.status_code
+
+    @staticmethod
+    def get_company_type_list(lang='uz_latn'):
+        responce = requests.get(f'{BASE_URL}/Manual/CompanyTypeSelectList?__lang={lang_id[lang]}', verify=False)
+        return responce.json()
+
+    @staticmethod
+    def get_company_type(id, lang='uz_latn'):
+        responce = requests.get(f'{BASE_URL}/Manual/CompanyTypeSelectList?__lang={lang_id[lang]}', verify=False)
+        for i in responce.json():
+            if i['value'] == int(id):
+                return i['text']
 
     @staticmethod
     def create_proposal(data):
@@ -61,4 +102,4 @@ class IntegrationSSP:
 
 
 if __name__ == '__main__':
-    print(IntegrationSSP.proposal_subject_list())
+    print(IntegrationSSP.get_company_type_list())

@@ -133,3 +133,15 @@ Mamlakatimiz ishbilarmonlik muhitini rivojlantirishda faol ishtirok eting!
 Принимайте активное участие в развитии предпринимательской среды в нашей стране!
 """,
     }
+
+    choose_value = {
+        'uz_latn': "Siz <code>{}</code> tanladingiz!",
+        'uz_cyrl': "Сиз <code>{}</code> танладингиз!",
+        'ru': "Вы выбрали <code>{}</code>!",
+    }
+
+    enter_company_type = {
+        'uz_latn': "Tashkilot turini kiriting:",
+        'uz_cyrl': "Ташкилот турини киритинг:",
+        'ru': "Введите тип организации:",
+    }

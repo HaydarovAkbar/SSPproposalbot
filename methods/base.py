@@ -68,13 +68,33 @@ def get_application_type(update: Update, context: CallbackContext):
     query = update.callback_query
     application_type = query.data
     lang = context.user_data['lang']
+    get_value = ssp.get_application_type(application_type, lang=lang)
     context.user_data['application_type'] = application_type
-    if query.data == '1':
-        context.bot.send_message(chat_id=update.effective_user.id, text=msg.enter_company_name.get(lang))
-        # query.edit_message_text(text=msg.enter_company_name.get(lang))
-        return st.COMPANY_NAME
-    context.bot.send_message(chat_id=update.effective_user.id, text=msg.business_sector.get(lang), reply_markup=base_button.business_sector(lang))
-    # query.edit_message_text(text=msg.business_sector.get(lang), reply_markup=base_button.business_sector(lang))
+    # if query.data == '1':
+    #     context.bot.send_message(chat_id=update.effective_user.id, text=msg.enter_company_inn.get(lang))
+    #     query.edit_message_text(text=msg.choose_value.get(lang).format(get_value), parse_mode="HTML")
+    #     return st.COMPANY_INN
+    context.bot.send_message(chat_id=update.effective_user.id, text=msg.enter_company_type.get(lang),
+                             reply_markup=base_button.get_company_type(lang))
+    query.edit_message_text(text=msg.choose_value.get(lang).format(get_value), parse_mode="HTML")
+    return st.COMPANY_TYPE
+
+
+def get_company_type(update: Update, context: CallbackContext):
+    query = update.callback_query
+    company_type = query.data
+    lang = context.user_data['lang']
+    context.user_data['company_type'] = company_type
+    get_value = ssp.get_company_type(company_type, lang=lang)
+
+    application_type = context.user_data['application_type']
+    if application_type == '1':
+        context.bot.send_message(chat_id=update.effective_user.id, text=msg.enter_company_inn.get(lang))
+        query.edit_message_text(text=msg.choose_value.get(lang).format(get_value), parse_mode="HTML")
+        return st.COMPANY_INN
+    context.bot.send_message(chat_id=update.effective_user.id, text=msg.business_sector.get(lang),
+                             reply_markup=base_button.business_sector(lang))
+    query.edit_message_text(text=msg.choose_value.get(lang).format(get_value), parse_mode="HTML")
     return st.BISENESS_CENTER
 
 
@@ -82,8 +102,8 @@ def get_company_name(update: Update, context: CallbackContext):
     company_name = update.message.text
     lang = context.user_data['lang']
     context.user_data['company_name'] = company_name
-    update.message.reply_html(text=msg.enter_company_inn.get(lang))
-    return st.COMPANY_INN
+    update.message.reply_html(text=msg.business_sector.get(lang), reply_markup=base_button.business_sector(lang))
+    return st.BISENESS_CENTER
 
 
 def get_company_inn(update: Update, context: CallbackContext):
@@ -93,23 +113,32 @@ def get_company_inn(update: Update, context: CallbackContext):
         update.message.reply_html(text=msg.enter_company_inn.get(lang))
         return st.COMPANY_INN
     context.user_data['company_inn'] = company_inn
-    update.message.reply_html(text=msg.business_sector.get(lang),
-                              reply_markup=base_button.business_sector(lang))
+    # update.message.reply_html(text=msg.enter_company_name.get(lang),
+    #                           )
+    # return st.COMPANY_NAME
+    get_company, status_code = ssp.get_contractor_from_soliq(int(company_inn))
+    if status_code != 200:
+        update.message.reply_html(text=msg.enter_company_inn.get(lang))
+        return st.COMPANY_INN
+    context.user_data['company_name'] = get_company
+    update.message.reply_html(text=msg.business_sector.get(lang), reply_markup=base_button.business_sector(lang))
     return st.BISENESS_CENTER
 
 
 def get_business_center(update: Update, context: CallbackContext):
     query = update.callback_query
     lang = context.user_data['lang']
-    context.user_data['business_center'] = query.data
+    business_center = query.data
+    context.user_data['business_center'] = business_center
     page = 1
     button, text = base_button.proposal_subject(lang, page)
     context.user_data['page'] = page
     context.bot.send_message(chat_id=update.effective_user.id,
                              text=text,
                              reply_markup=button)
-    # query.edit_message_text(text=text,
-    #                         reply_markup=button)
+    get_value = ssp.get_business_sector(business_center, lang=lang)
+    query.edit_message_text(text=msg.choose_value.get(lang).format(get_value),
+                            parse_mode="HTML")
     return st.BISENESS_TYPE
 
 
@@ -131,8 +160,11 @@ def get_business_type(update: Update, context: CallbackContext):
             query.answer(text=msg.last_page.get(lang))
             return st.BISENESS_TYPE
     else:
-        context.user_data['business_type'] = query.data
-        # query.delete_message()
+        business_type = query.data
+        context.user_data['business_type'] = business_type
+        get_value = ssp.get_proposal_subject(business_type, lang=lang)
+        query.edit_message_text(text=msg.choose_value.get(lang).format(get_value),
+                                parse_mode="HTML")
         context.bot.send_message(chat_id=update.effective_user.id, text=msg.get_appeal.get(lang))
         return st.APPEAL
     context.user_data['page'] = page

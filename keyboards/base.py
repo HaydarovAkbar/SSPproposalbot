@@ -80,3 +80,13 @@ class Button:
                        # InlineKeyboardButton(f"️❌", callback_data="delete"),
                        InlineKeyboardButton(f"️➡", callback_data="right")])
         return InlineKeyboardMarkup(button), result_text
+
+    @staticmethod
+    def get_company_type(lang='uz_latn'):
+        ssp_company_type = ssp.get_company_type_list(lang)
+        button, bt_txt = [], []
+        for app in ssp_company_type:
+            bt_txt.append(InlineKeyboardButton(app['text'], callback_data=app['value']))
+            button.append(bt_txt)
+            bt_txt = []
+        return InlineKeyboardMarkup(button)

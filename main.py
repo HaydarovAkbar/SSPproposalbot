@@ -2,7 +2,7 @@ from telegram.ext import Updater, CallbackQueryHandler, CommandHandler, MessageH
 from telegram.ext import Dispatcher, ConversationHandler
 from methods.base import start, get_language, get_phonenumber, phone_number_error, error_message, get_offer, \
     get_application_type, \
-    get_company_name, get_company_inn, get_business_center, get_business_type, get_appeal
+    get_company_name, get_company_inn, get_business_center, get_business_type, get_appeal, get_company_type
 from states import State as st
 from decouple import config
 
@@ -37,6 +37,11 @@ hand_command = ConversationHandler(
         st.APPLICATION_TYPE: [
             CommandHandler('start', start),
             CallbackQueryHandler(get_application_type),
+            # MessageHandler(Filters.text, get_application_type)
+        ],
+        st.COMPANY_TYPE: [
+            CommandHandler('start', start),
+            CallbackQueryHandler(get_company_type),
             # MessageHandler(Filters.text, get_application_type)
         ],
         st.COMPANY_NAME: [

@@ -9,3 +9,4 @@ class State:
     BISENESS_CENTER = 7
     BISENESS_TYPE = 8
     APPEAL = 9
+    COMPANY_TYPE = 10
