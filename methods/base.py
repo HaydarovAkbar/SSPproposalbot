@@ -124,7 +124,7 @@ def get_company_inn(update: Update, context: CallbackContext):
     if status_code != 200:
         update.message.reply_html(text=msg.enter_company_inn.get(lang))
         return st.COMPANY_INN
-    context.user_data['company_name'] = get_company
+    context.user_data['company_name'] = get_company['shortName']
     update.message.reply_html(text=msg.business_sector.get(lang), reply_markup=base_button.business_sector(lang))
     return st.BISENESS_CENTER
 
