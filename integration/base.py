@@ -9,6 +9,7 @@ lang_id = {
     'en': 1,
 }
 
+
 class IntegrationSSP:
     @staticmethod
     def get_token():
@@ -98,9 +99,7 @@ class IntegrationSSP:
             data.pop('companyInn')
         if not data.get('businessSectorId', False):
             data.pop('businessSectorId')
-        print(data)
         response = requests.post(url, json=data, verify=False)
-        print(response.json())
         return response.status_code
 
 
