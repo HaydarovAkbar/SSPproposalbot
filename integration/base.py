@@ -13,7 +13,7 @@ lang_id = {
 class IntegrationSSP:
     @staticmethod
     def get_token():
-        url = 'https://ssp.uz/api/v1/auth/login'
+        url = '{BASE_URL}/auth/login'
         data = {
             "username": "admin",
             "password": "admin"
