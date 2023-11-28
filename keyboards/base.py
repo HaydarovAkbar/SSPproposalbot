@@ -7,11 +7,6 @@ class Button:
     @staticmethod
     def language():
         msg = kbt.language
-        # button = ReplyKeyboardMarkup([
-        #     [msg[0]],
-        #     [msg[1]],
-        #     [msg[2]],
-        # ], resize_keyboard=True)
         button = InlineKeyboardMarkup([
             [InlineKeyboardButton(msg[0], callback_data='uz_latn')],
             [InlineKeyboardButton(msg[1], callback_data='uz_cyrl')],
