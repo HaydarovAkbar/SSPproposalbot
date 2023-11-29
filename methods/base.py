@@ -117,9 +117,6 @@ def get_company_inn(update: Update, context: CallbackContext):
         update.message.reply_html(text=msg.enter_company_inn.get(lang))
         return st.COMPANY_INN
     context.user_data['company_inn'] = company_inn
-    # update.message.reply_html(text=msg.enter_company_name.get(lang),
-    #                           )
-    # return st.COMPANY_NAME
     get_company, status_code = ssp.get_contractor_from_soliq(int(company_inn))
     if status_code != 200:
         update.message.reply_html(text=msg.enter_company_inn.get(lang))
