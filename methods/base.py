@@ -197,3 +197,9 @@ def feedback(update: Update, context: CallbackContext):
         reply_markup=ReplyKeyboardRemove()
     )
     return st.BASE
+
+
+def echo(update: Update, context: CallbackContext):
+    """Echo the user message."""
+    update.message.reply_text(update.message.text)
+    return st.BASE
