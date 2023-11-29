@@ -183,9 +183,11 @@ def get_appeal(update: Update, context: CallbackContext):
 
 
 def feedback(update: Update, context: CallbackContext):
+    """Create and send feedback"""
     lang = context.user_data['lang']
     context.user_data['feedback'] = update.message.text
-    create = ssp.create_feedback(data=context.user_data)
+    create = ssp.create_feedback(data=context.user_data)  # create feedback
+    context.user_data.clear()
     if create == 200:
         update.message.reply_html(text=msg.successfully.get(lang))
         update.message.reply_text(text=msg.vote.get(lang))
@@ -194,4 +196,12 @@ def feedback(update: Update, context: CallbackContext):
         text=msg.error_message.get(lang),
         reply_markup=ReplyKeyboardRemove()
     )
+    return st.BASE
+
+
+def echo(update: Update, context: CallbackContext):
+    """Echo the user message."""
+    update.message.reply_text(update.message.text)
+    # send to message to admin
+    context.bot.send_message(chat_id=update.effective_user.id, text=msg.error_message.get('uz_cyrl'))
     return st.BASE
