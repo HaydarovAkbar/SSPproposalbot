@@ -180,3 +180,18 @@ def get_appeal(update: Update, context: CallbackContext):
     context.user_data['appeal'] = update.message.text
     update.message.reply_html(text=msg.get_offer.get(lang))
     return st.OFFER
+
+
+def feedback(update: Update, context: CallbackContext):
+    lang = context.user_data['lang']
+    context.user_data['feedback'] = update.message.text
+    create = ssp.create_feedback(data=context.user_data)
+    if create == 200:
+        update.message.reply_html(text=msg.successfully.get(lang))
+        update.message.reply_text(text=msg.vote.get(lang))
+        return st.BASE
+    update.message.reply_html(
+        text=msg.error_message.get(lang),
+        reply_markup=ReplyKeyboardRemove()
+    )
+    return st.BASE
