@@ -11,5 +11,5 @@ pip3 install -r requirements.txt         # this version
 # How to run bot?
 go to the project file and run the ```main.py``` file
 ```
-python3 main.py
+python3 main.py # run the bot
 ```
